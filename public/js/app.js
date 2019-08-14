@@ -1854,18 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['budget'],
   data: function data() {
-    return {
-      budget: {
-        'id': '',
-        'norder': '',
-        'ninvoice': '',
-        'description': '',
-        'date': '',
-        'total': '',
-        'desct1': '',
-        'desct2': ''
-      }
-    };
+    return {};
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1965,28 +1954,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      norder: ''
+      norder: '',
+      ninvoice: '',
+      description: '',
+      date: '',
+      total: '',
+      desct1: '',
+      desct2: ''
     };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   methods: {
-    newPresupuesto: function newPresupuesto() {
-      var _this = this;
-
-      var params = {
-        norder: this.norder
+    newBudget: function newBudget() {
+      var budget = {
+        'id': 3,
+        'norder': this.norder,
+        'ninvoice': this.ninvoice,
+        'description': this.description,
+        'date': this.date,
+        'total': this.total,
+        'desct1': this.desct1,
+        'desct2': this.desct2
       };
-      this.norder = '';
-      axios.post('/presupuesto', params).then(function (res) {
-        var presupuesto = res.data;
-
-        _this.$emit('new', norder);
-      });
+      this.$emit('new', budget);
     }
   }
 });
@@ -2002,8 +2004,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2070,6 +2070,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component Mounted');
+  },
+  methods: {
+    addBudget: function addBudget(budget) {
+      this.budgets.push(budget);
+    }
   }
 });
 
@@ -37408,7 +37413,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", { staticClass: "col-md-10" }, [
+    _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _vm._v("Agregar control Presupuestario")
@@ -37422,7 +37427,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.newPresupuesto()
+                  return _vm.newBudget($event)
                 }
               }
             },
@@ -37564,36 +37569,88 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.total_amount,
-                        expression: "total_amount"
+                        value: _vm.total,
+                        expression: "total"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
-                      name: "total_amount",
+                      name: "total",
                       placeholder: "20.000.000BsS",
-                      type: "number"
+                      type: "text"
                     },
-                    domProps: { value: _vm.total_amount },
+                    domProps: { value: _vm.total },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.total_amount = $event.target.value
+                        _vm.total = $event.target.value
                       }
                     }
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
+                _c("div", { staticClass: "col-12" }, [
+                  _c("label", { attrs: { for: "ordern" } }, [
+                    _vm._v("Descuento de responsabilidad Social")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.desct1,
+                        expression: "desct1"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "desct1", value: "666", type: "text" },
+                    domProps: { value: _vm.desct1 },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.desct1 = $event.target.value
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _c("div", { staticClass: "col-12" }, [
+                  _c("label", { attrs: { for: "ordern" } }, [
+                    _vm._v("Descuento al monto total ")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.desct2,
+                        expression: "desct2"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "desct2", value: "555", type: "text" },
+                    domProps: { value: _vm.desct2 },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.desct2 = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("input", {
                 staticClass: "form-control mt-2 btn d-block btn-primary",
-                attrs: { value: "Agregar", type: "submit", name: "" }
+                attrs: { value: "Agregar presupuesto", type: "submit" }
               })
             ]
           )
@@ -37602,43 +37659,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("label", { attrs: { for: "ordern" } }, [
-        _vm._v("Descuento de responsabilidad Social")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          disabled: "",
-          value: "123",
-          placeholder: "444s",
-          type: "number"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("label", { attrs: { for: "ordern" } }, [
-        _vm._v("Descuento al monto total ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { disabled: "", placeholder: "222", type: "number" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37664,13 +37685,17 @@ var render = function() {
     _c(
       "div",
       { staticClass: "container" },
-      [_c("form-budget-component"), _vm._v(" "), _c("br")],
+      [
+        _c("form-budget-component", { on: { new: _vm.addBudget } }),
+        _vm._v(" "),
+        _c("br")
+      ],
       1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card table-responsive" }, [
             _c("table", { staticClass: "table table-striped" }, [
               _vm._m(0),

@@ -16,16 +16,6 @@
         props: ['budget'],
         data(){
             return {
-                budget: {
-                    'id': '',
-                    'norder': '',
-                    'ninvoice': '',
-                    'description': '',
-                    'date': '',
-                    'total': '',
-                    'desct1': '',
-                    'desct2': ''
-                }
             }
         },
         mounted() {

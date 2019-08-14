@@ -1,12 +1,12 @@
 <template>
    <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Agregar control Presupuestario</div>
 
                 <div class="card-body">
                     
-                    <form action="POST" v-on:submit.prevent="newPresupuesto()">
+                    <form action="POST" v-on:submit.prevent="newBudget">
                         <div class="row">
                             <div class="col-md-2">
                                 <label for="ordern">Nro Orden</label>
@@ -57,22 +57,29 @@
                             <div class="col-md-12">
                                  <label for="ordern">Cantidad Total</label>
                                  <input 
-                                 name="total_amount"
-                                 v-model="total_amount"
-                                 class="form-control" placeholder="20.000.000BsS" type="number">
+                                 name="total"
+                                 v-model="total"
+                                 class="form-control" placeholder="20.000.000BsS" type="text">
                             </div> 
                             <div class="col-12">
                                  <label for="ordern">Descuento de responsabilidad Social</label>
-                                 <input disabled="" value="123" class="form-control" placeholder="444s" type="number">
+                                 <input 
+                                 v-model="desct1"
+                                 name="desct1"
+                                 value="666" class="form-control" type="text">
+
                             </div> 
 
                             <div class="col-12">
                                  <label for="ordern">Descuento al monto total </label>
-                                 <input disabled="" class="form-control" placeholder="222" type="number">
+                                 <input 
+                                 v-model="desct2"
+                                 name="desct2"
+                                 value="555" class="form-control" type="text">
                             </div> 
                         </div>
     
-                        <input class="form-control mt-2 btn d-block btn-primary" value="Agregar" type="submit" name="">
+                        <input class="form-control mt-2 btn d-block btn-primary" value="Agregar presupuesto" type="submit">
                     </form>
                 </div>
             </div>
@@ -84,26 +91,32 @@
     export default {
         data(){
             return {
-                norder: ''
+                norder: '',
+                ninvoice: '',
+                description: '',
+                date: '',
+                total: '',
+                desct1: '',
+                desct2: ''
             }
         },
         mounted() {
             console.log('Component mounted.')
         },
         methods: {
-            newPresupuesto(){
-                const params = {
-                    norder : this.norder
-                };
-
-                this.norder = '';
-
-                axios.post('/presupuesto',params)
-                     .then((res)=>{
-                        const presupuesto = res.data;
-
-                        this.$emit('new',norder);
-                     })
+            newBudget(){
+                let budget = {
+                    'id': 3,
+                    'norder': this.norder,
+                    'ninvoice': this.ninvoice,
+                    'description': this.description,
+                    'date': this.date,
+                    'total': this.total,
+                    'desct1': this.desct1,
+                    'desct2': this.desct2
+                }
+                
+                this.$emit('new',budget)
             }
         }
     }

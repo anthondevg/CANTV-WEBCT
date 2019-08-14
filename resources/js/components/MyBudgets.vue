@@ -1,13 +1,13 @@
 <template>
 	<div>	
 		<div class="container">
-			<form-budget-component></form-budget-component>
+			<form-budget-component @new="addBudget"></form-budget-component>
 			<br>
 		</div>
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card table-responsive">
                     <table class="table table-striped">
 		                  <thead>
@@ -64,10 +64,14 @@
 				}]
 			}
 		},
-
 		mounted() {
 
 			console.log('Component Mounted');
+		},
+		methods: {
+			addBudget(budget) {
+				this.budgets.push(budget);
+			}
 		}
 	}
 </script>
